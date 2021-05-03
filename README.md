@@ -1,14 +1,14 @@
 # La Belle Du Jour API
 
-## Sobre
-Esse é um agregador de preços de produtos de beleza.
+## About
+This is a price comparison API for beauty products.
 
-### Dependências
+### Dependencies
 - Spring Web
 - H2 database
 - Lombok
 - JPA
 
-### Para acessar o console do H2
+### Access H2 console
  - http://localhost:9090/h2-console
 
