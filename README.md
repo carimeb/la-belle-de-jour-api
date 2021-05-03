@@ -8,3 +8,7 @@ Esse é um agregador de preços de produtos de beleza.
 - H2 database
 - Lombok
 - JPA
+
+### Para acessar o console do H2
+ - http://localhost:9090/h2-console
+
