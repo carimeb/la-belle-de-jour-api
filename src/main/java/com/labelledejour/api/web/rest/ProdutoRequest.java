@@ -1,12 +1,18 @@
 package com.labelledejour.api.web.rest;
 
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+@Getter
+@Setter
 public class ProdutoRequest {
 
-    @NotNull(message = "Campo obrigatório")
+    @NotBlank(message = "Campo obrigatório")
     private String nome;
-    @NotNull(message = "Campo obrigatório")
+    @NotBlank(message = "Campo obrigatório")
     private String fichaTecnica;
 
 }
