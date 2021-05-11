@@ -1,7 +1,9 @@
 package com.labelledejour.api.data.produto;
 
 import com.labelledejour.api.domain.entity.Produto;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -9,6 +11,8 @@ import java.time.LocalDate;
 @Entity
 @Builder
 @Table(name = "PRODUTOS")
+@AllArgsConstructor
+@NoArgsConstructor
 public class ProdutoEntity {
 
     @Id
@@ -16,7 +20,7 @@ public class ProdutoEntity {
     private Long id;
     private String nome;
 
-    @Column(name = "ficha_tecnica")
+    @Column(name = "ficha_tecnica", columnDefinition="VARCHAR(300)")
     private String fichaTecnica;
 
     @Column(name = "criado_em")
@@ -32,6 +36,14 @@ public class ProdutoEntity {
                 .criadoEm(produto.getCriadoEm())
                 .atualizadoEm(produto.getAtualizadoEm())
                 .build();
+    }
+
+    public Produto toProduto() {
+        Produto produto = new Produto();
+        produto.setNome(this.nome);
+        produto.setFichaTecnica(this.fichaTecnica);
+
+        return produto;
     }
 
 }
