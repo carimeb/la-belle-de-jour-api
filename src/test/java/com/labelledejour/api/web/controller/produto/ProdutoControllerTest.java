@@ -18,7 +18,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(
+@SpringBootTest(    //configura ambiente de teste
         webEnvironment = SpringBootTest.WebEnvironment.MOCK,
         classes = ApiApplication.class
 )
@@ -27,7 +27,7 @@ class ProdutoControllerTest {
 
     private static final String BASE_URL = "/api/v1/produto";
     @Autowired
-    private MockMvc mvc;
+    private MockMvc mvc;  //faz requisições (mockadas) pro endpoint
 
     @Test
     void deveSalvarUmNovoProduto() throws Exception {
@@ -38,7 +38,7 @@ class ProdutoControllerTest {
                 .build();
 
         var objectMapper = new ObjectMapper();
-        var body = objectMapper.writeValueAsString(produtoRequest);
+        var body = objectMapper.writeValueAsString(produtoRequest);  //transforma um objeto Json em String
 
         mvc.perform(
                 post(BASE_URL)
