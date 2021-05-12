@@ -5,6 +5,7 @@ import com.labelledejour.api.domain.usecase.produto.Cadastrar;
 import com.labelledejour.api.domain.usecase.produto.Listar;
 import com.labelledejour.api.web.converter.ProdutoConverter;
 import com.labelledejour.api.web.rest.ProdutoRequest;
+import com.labelledejour.api.web.rest.ProdutoResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,5 +32,8 @@ public class ProdutoController {
     }
 
     @GetMapping
-    public List<Produto> list() { return listar.list(); }
+    public List<ProdutoResponse> list() {
+        List<Produto> produtos = listar.list();
+        return produtoConverter.toProdutoResponse(produtos);
+    }
 }

@@ -40,8 +40,11 @@ public class ProdutoEntity {
 
     public Produto toProduto() {
         Produto produto = new Produto();
+        produto.setId(this.id);
         produto.setNome(this.nome);
         produto.setFichaTecnica(this.fichaTecnica);
+        produto.setCriadoEm(this.criadoEm);
+        produto.setAtualizadoEm(this.atualizadoEm);
 
         return produto;
     }

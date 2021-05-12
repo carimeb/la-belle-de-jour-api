@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 public class Produto {
 
+    private long id;
     private String nome;
     private String fichaTecnica;
     private LocalDate criadoEm;
@@ -15,6 +16,14 @@ public class Produto {
         this.nome = nome;
         this.fichaTecnica = fichaTecnica;
         this.criadoEm = LocalDate.now();
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -37,10 +46,15 @@ public class Produto {
         return criadoEm;
     }
 
-    public LocalDate getAtualizadoEm() { return atualizadoEm; }
-
-    public void setAtualizadoEm(LocalDate dataAtualizacao) {
-        this.atualizadoEm = dataAtualizacao;
+    public void setCriadoEm(LocalDate criadoEm) {
+        this.criadoEm = criadoEm;
     }
 
+    public LocalDate getAtualizadoEm() {
+        return atualizadoEm;
+    }
+
+    public void setAtualizadoEm(LocalDate atualizadoEm) {
+        this.atualizadoEm = atualizadoEm;
+    }
 }
