@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @RestController
@@ -35,5 +36,11 @@ public class ProdutoController {
     public List<ProdutoResponse> list() {
         List<Produto> produtos = listar.list();
         return produtoConverter.toProdutoResponse(produtos);
+    }
+
+    @GetMapping("/{id}")
+    public ProdutoResponse product(@PathVariable long id) {
+        Produto produto = listar.listById(id);
+        return produtoConverter.toProdutoResponse(produto);
     }
 }

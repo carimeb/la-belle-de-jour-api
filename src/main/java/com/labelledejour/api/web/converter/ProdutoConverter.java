@@ -23,4 +23,12 @@ public class ProdutoConverter {
                         .fichaTecnica(produto.getFichaTecnica())
                         .build()).collect(Collectors.toList());
     }
+
+    public ProdutoResponse toProdutoResponse(Produto produto) {
+        return ProdutoResponse.builder()
+                .id(produto.getId())
+                .nome(produto.getNome())
+                .fichaTecnica(produto.getFichaTecnica())
+                .build();
+    }
 }

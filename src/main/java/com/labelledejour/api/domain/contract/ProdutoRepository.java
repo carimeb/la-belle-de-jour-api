@@ -7,7 +7,9 @@ import java.util.List;
 
 public interface ProdutoRepository {
 
-    public void save(Produto produto);
+    void save(Produto produto);
 
-    public List<Produto> list();
+    List<Produto> list();
+
+    Produto listById(long id);
 }

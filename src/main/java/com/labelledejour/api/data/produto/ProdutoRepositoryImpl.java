@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Repository
@@ -24,5 +25,12 @@ public class ProdutoRepositoryImpl implements ProdutoRepository {
         return produtoDao.findAll().stream()
                 .map(ProdutoEntity::toProduto)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Produto listById(long id) {
+        ProdutoEntity produtoEntity = produtoDao.findById(id)
+                .orElseThrow(ProdutoNaoEncontradoException::new);
+        return produtoEntity.toProduto();
     }
 }

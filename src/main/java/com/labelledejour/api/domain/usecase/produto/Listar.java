@@ -16,4 +16,8 @@ public class Listar {
     public List<Produto> list(){
         return produtoRepository.list();
     }
+
+    public Produto listById(long id) {
+        return produtoRepository.listById(id);
+    }
 }
