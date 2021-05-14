@@ -1,5 +1,6 @@
 package com.labelledejour.api.web.rest.exception;
 
+import com.labelledejour.api.data.produto.ProdutoNaoEncontradoException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -18,6 +19,12 @@ public class RestExceptionHandler {
 
         var body = ExceptionResponse.of(ex.getBindingResult());
         return ResponseEntity.badRequest().body(body);
+    }
 
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(ProdutoNaoEncontradoException.class)
+    public ResponseEntity<ExceptionResponse> handleInvalidProductId(ProdutoNaoEncontradoException ex) {
+        var body = ExceptionResponse.of(ex.getMessage());
+        return ResponseEntity.badRequest().body(body);
     }
 }

@@ -1,6 +1,7 @@
 package com.labelledejour.api.web.controller.produto;
 
 import com.labelledejour.api.domain.entity.Produto;
+import com.labelledejour.api.domain.usecase.produto.Atualizar;
 import com.labelledejour.api.domain.usecase.produto.Cadastrar;
 import com.labelledejour.api.domain.usecase.produto.Listar;
 import com.labelledejour.api.web.converter.ProdutoConverter;
@@ -26,6 +27,9 @@ public class ProdutoController {
     @Autowired
     Listar listar;
 
+    @Autowired
+    Atualizar atualizar;
+
     @PostMapping
     public void save(@RequestBody @Valid ProdutoRequest produtoRequest){
         Produto produto = produtoConverter.toProduto(produtoRequest);
@@ -43,4 +47,11 @@ public class ProdutoController {
         Produto produto = listar.listById(id);
         return produtoConverter.toProdutoResponse(produto);
     }
+
+    @PutMapping("/{id}")  //atualiza todos os campos, não só um ou outro
+    public void update(@NotBlank @PathVariable long id, @RequestBody @Valid ProdutoRequest produtoRequest) {
+        Produto produto = produtoConverter.toProduto(id, produtoRequest);
+        atualizar.update(produto);
+    }
+
 }

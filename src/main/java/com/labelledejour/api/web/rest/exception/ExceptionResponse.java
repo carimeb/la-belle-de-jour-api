@@ -27,4 +27,10 @@ public class ExceptionResponse {
                             .build();
                 }).collect(Collectors.toList());
     }
+
+    public static ExceptionResponse of(String msg) {
+        return ExceptionResponse.builder()
+                .message(msg)
+                .build();
+    }
 }

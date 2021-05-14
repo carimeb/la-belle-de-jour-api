@@ -7,10 +7,15 @@ public class Produto {
     private long id;
     private String nome;
     private String fichaTecnica;
-    private LocalDate criadoEm;
-    private LocalDate atualizadoEm;
+    private LocalDate criadoEm;   //TODO corrigir no update
+    private LocalDate atualizadoEm;   //TODO corrigir no update
 
     public Produto() {}
+
+    public Produto(long id, String nome, String fichaTecnica) {
+        this(nome, fichaTecnica);
+        this.id = id;
+    }
 
     public Produto(String nome, String fichaTecnica) {
         this.nome = nome;

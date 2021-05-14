@@ -31,6 +31,7 @@ public class ProdutoEntity {
 
     public static ProdutoEntity of(Produto produto) {
         return ProdutoEntity.builder()
+                .id(produto.getId())
                 .nome(produto.getNome())
                 .fichaTecnica(produto.getFichaTecnica())
                 .criadoEm(produto.getCriadoEm())

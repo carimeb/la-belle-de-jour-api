@@ -2,7 +2,10 @@ package com.labelledejour.api.web.controller.produto;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.labelledejour.api.ApiApplication;
+import com.labelledejour.api.domain.contract.ProdutoRepository;
+import com.labelledejour.api.domain.entity.Produto;
 import com.labelledejour.api.web.rest.ProdutoRequest;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -34,6 +38,9 @@ class ProdutoControllerTest {
 
     @Autowired
     private MockMvc mvc;  //faz requisições (mockadas) pro endpoint
+
+    @Autowired
+    private ProdutoRepository produtoRepository;
 
     @Test
     void deveSalvarUmNovoProduto() throws Exception {
@@ -54,6 +61,30 @@ class ProdutoControllerTest {
     }
 
     @Test
+    @Sql({TRUNCATE, LISTA_PRODUTOS})
+    void deveAtualizarUmProdutoPorId() throws Exception {
+
+        var produtoRequest = ProdutoRequest.builder()
+                .nome("atualização do batom teste")
+                .fichaTecnica("atualização da ficha técnica do batom teste. Produto muito bom")
+                .build();
+
+        var objectMapper = new ObjectMapper();
+        var body = objectMapper.writeValueAsString(produtoRequest);  //transforma um objeto Json em String
+
+        mvc.perform(
+                put(BASE_URL + "/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(body)
+        ).andExpect(status().isOk());
+
+        Produto produto = produtoRepository.listById(1L);
+        Assertions.assertEquals("atualização do batom teste", produto.getNome());
+        Assertions.assertEquals("atualização da ficha técnica do batom teste. Produto muito bom",
+                produto.getFichaTecnica());
+    }
+
+    @Test
     void deveValidarCampoNuloNaRequestDeUmNovoProduto() throws Exception {
 
         var produtoRequest = ProdutoRequest.builder()
@@ -62,7 +93,7 @@ class ProdutoControllerTest {
                 .build();
 
         var objectMapper = new ObjectMapper();
-        var body = objectMapper.writeValueAsString(produtoRequest);
+        var body = objectMapper.writeValueAsString(produtoRequest);System.out.println("Produto repository consultado");
 
         mvc.perform(
                 post(BASE_URL)
@@ -105,5 +136,16 @@ class ProdutoControllerTest {
         )
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)));
+    }
+
+    @Test
+    void deveRetornarMsgAmigavelQdoProdutoNaoEncontrado() throws Exception {
+
+        mvc.perform(
+                get(BASE_URL + "/6")
+                        .contentType(MediaType.APPLICATION_JSON)
+        )
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("message", is("Produto não encontrado.")));
     }
 }

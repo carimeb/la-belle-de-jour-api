@@ -12,4 +12,6 @@ public interface ProdutoRepository {
     List<Produto> list();
 
     Produto listById(long id);
+
+    void update(Produto produto);
 }

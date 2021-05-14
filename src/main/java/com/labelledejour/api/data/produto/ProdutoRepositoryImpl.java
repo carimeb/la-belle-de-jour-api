@@ -33,4 +33,14 @@ public class ProdutoRepositoryImpl implements ProdutoRepository {
                 .orElseThrow(ProdutoNaoEncontradoException::new);
         return produtoEntity.toProduto();
     }
+
+    @Override
+    public void update(Produto produto) {
+        boolean produtoExiste = produtoDao.existsById(produto.getId());
+        if(!produtoExiste) {
+            throw new ProdutoNaoEncontradoException();
+        }
+        produtoDao.save(ProdutoEntity.of(produto));
+    }
+
 }
