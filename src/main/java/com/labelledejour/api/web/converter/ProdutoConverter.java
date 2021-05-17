@@ -15,16 +15,13 @@ public class ProdutoConverter {
         return new Produto(produtoRequest.getNome(), produtoRequest.getFichaTecnica());
     }
 
-    public Produto toProduto(long id, ProdutoRequest produtoRequest){
-        return new Produto(id, produtoRequest.getNome(), produtoRequest.getFichaTecnica());
-    }
-
     public List<ProdutoResponse> toProdutoResponse(List<Produto> produtos) {
         return produtos.stream()
                .map(produto -> ProdutoResponse.builder()
                         .id(produto.getId())
                         .nome(produto.getNome())
                         .fichaTecnica(produto.getFichaTecnica())
+                        .atualizadoEm(produto.getAtualizadoEm())
                         .build()).collect(Collectors.toList());
     }
 
@@ -33,6 +30,7 @@ public class ProdutoConverter {
                 .id(produto.getId())
                 .nome(produto.getNome())
                 .fichaTecnica(produto.getFichaTecnica())
+                .atualizadoEm(produto.getAtualizadoEm())
                 .build();
     }
 }

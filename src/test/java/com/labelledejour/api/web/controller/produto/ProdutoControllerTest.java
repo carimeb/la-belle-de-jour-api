@@ -5,7 +5,7 @@ import com.labelledejour.api.ApiApplication;
 import com.labelledejour.api.domain.contract.ProdutoRepository;
 import com.labelledejour.api.domain.entity.Produto;
 import com.labelledejour.api.web.rest.ProdutoRequest;
-import org.junit.jupiter.api.Assertions;
+import static org.hamcrest.CoreMatchers.is;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +16,8 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -79,9 +79,13 @@ class ProdutoControllerTest {
         ).andExpect(status().isOk());
 
         Produto produto = produtoRepository.listById(1L);
-        Assertions.assertEquals("atualização do batom teste", produto.getNome());
+        /* Assertions.assertEquals("atualização do batom teste", produto.getNome());
         Assertions.assertEquals("atualização da ficha técnica do batom teste. Produto muito bom",
                 produto.getFichaTecnica());
+        */
+
+        assertThat(produto.getNome(), is("atualização do batom teste"));
+        assertThat(produto.getFichaTecnica(), is("atualização da ficha técnica do batom teste. Produto muito bom"));
     }
 
     @Test

@@ -12,11 +12,6 @@ public class Produto {
 
     public Produto() {}
 
-    public Produto(long id, String nome, String fichaTecnica) {
-        this(nome, fichaTecnica);
-        this.id = id;
-    }
-
     public Produto(String nome, String fichaTecnica) {
         this.nome = nome;
         this.fichaTecnica = fichaTecnica;

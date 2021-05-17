@@ -36,10 +36,6 @@ public class ProdutoRepositoryImpl implements ProdutoRepository {
 
     @Override
     public void update(Produto produto) {
-        boolean produtoExiste = produtoDao.existsById(produto.getId());
-        if(!produtoExiste) {
-            throw new ProdutoNaoEncontradoException();
-        }
         produtoDao.save(ProdutoEntity.of(produto));
     }
 

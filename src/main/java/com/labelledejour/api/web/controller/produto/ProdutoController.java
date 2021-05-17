@@ -50,8 +50,8 @@ public class ProdutoController {
 
     @PutMapping("/{id}")  //atualiza todos os campos, não só um ou outro
     public void update(@NotBlank @PathVariable long id, @RequestBody @Valid ProdutoRequest produtoRequest) {
-        Produto produto = produtoConverter.toProduto(id, produtoRequest);
-        atualizar.update(produto);
+        Produto produtoPersistido = listar.listById(id);
+        atualizar.update(produtoPersistido, produtoRequest);
     }
 
 }
