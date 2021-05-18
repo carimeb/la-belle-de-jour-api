@@ -29,7 +29,7 @@ public class ProdutoEntity {
     @Column(name = "atualizado_em", nullable = true)
     private LocalDate atualizadoEm;
 
-    public static ProdutoEntity of(Produto produto) {
+    public static ProdutoEntity of(Produto produto) {  //transformo uma entidade do domain para entidade do BD
         return ProdutoEntity.builder()
                 .id(produto.getId())
                 .nome(produto.getNome())
@@ -39,7 +39,7 @@ public class ProdutoEntity {
                 .build();
     }
 
-    public Produto toProduto() {
+    public Produto toProduto() {     //transformo uma entidade do BD para entidade do domain
         Produto produto = new Produto();
         produto.setId(this.id);
         produto.setNome(this.nome);

@@ -16,11 +16,14 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.List;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -151,5 +154,19 @@ class ProdutoControllerTest {
         )
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("message", is("Produto não encontrado.")));
+    }
+
+    @Test
+    @Sql({TRUNCATE, LISTA_PRODUTOS})
+    void deveDeletarUmProduto() throws Exception {
+
+        mvc.perform(
+                delete(BASE_URL + "/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+        )
+                .andExpect(status().isOk());
+
+        List<Produto> produtos = produtoRepository.list();
+        assertThat(produtos.size(), is(1));  //certifica que sobrou apenas um produto na base de dados
     }
 }

@@ -4,6 +4,7 @@ import com.labelledejour.api.domain.entity.Produto;
 import com.labelledejour.api.domain.usecase.produto.Atualizar;
 import com.labelledejour.api.domain.usecase.produto.Cadastrar;
 import com.labelledejour.api.domain.usecase.produto.Listar;
+import com.labelledejour.api.domain.usecase.produto.Deletar;
 import com.labelledejour.api.web.converter.ProdutoConverter;
 import com.labelledejour.api.web.rest.ProdutoRequest;
 import com.labelledejour.api.web.rest.ProdutoResponse;
@@ -30,6 +31,9 @@ public class ProdutoController {
     @Autowired
     Atualizar atualizar;
 
+    @Autowired
+    Deletar deletar;
+
     @PostMapping
     public void save(@RequestBody @Valid ProdutoRequest produtoRequest){
         Produto produto = produtoConverter.toProduto(produtoRequest);
@@ -54,4 +58,9 @@ public class ProdutoController {
         atualizar.update(produtoPersistido, produtoRequest);
     }
 
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable long id){
+        Produto produto = listar.listById(id);  //já ganhei a exceção aqui
+        deletar.delete(produto);
+    }
 }
