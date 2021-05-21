@@ -10,7 +10,7 @@ import javax.validation.Valid;
 import java.time.LocalDate;
 
 @Service
-public class Atualizar {
+public class AtualizarProduto {
 
     @Autowired
     ProdutoRepository produtoRepository;

@@ -6,12 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class Cadastrar {
+public class DeletarProduto {
 
     @Autowired
     ProdutoRepository produtoRepository;
 
-    public void save(Produto produto){
-        produtoRepository.save(produto);
+    public void delete(Produto produto){
+        produtoRepository.delete(produto);
     }
 }

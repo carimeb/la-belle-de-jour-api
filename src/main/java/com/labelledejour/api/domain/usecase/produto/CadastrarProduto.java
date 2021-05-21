@@ -5,19 +5,13 @@ import com.labelledejour.api.domain.entity.Produto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
-public class Listar {
+public class CadastrarProduto {
 
     @Autowired
     ProdutoRepository produtoRepository;
 
-    public List<Produto> list(){
-        return produtoRepository.list();
-    }
-
-    public Produto listById(long id) {
-        return produtoRepository.listById(id);
+    public void save(Produto produto){
+        produtoRepository.save(produto);
     }
 }

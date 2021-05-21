@@ -1,10 +1,10 @@
 package com.labelledejour.api.web.controller.produto;
 
 import com.labelledejour.api.domain.entity.Produto;
-import com.labelledejour.api.domain.usecase.produto.Atualizar;
-import com.labelledejour.api.domain.usecase.produto.Cadastrar;
-import com.labelledejour.api.domain.usecase.produto.Listar;
-import com.labelledejour.api.domain.usecase.produto.Deletar;
+import com.labelledejour.api.domain.usecase.produto.AtualizarProduto;
+import com.labelledejour.api.domain.usecase.produto.CadastrarProduto;
+import com.labelledejour.api.domain.usecase.produto.ListarProduto;
+import com.labelledejour.api.domain.usecase.produto.DeletarProduto;
 import com.labelledejour.api.web.converter.ProdutoConverter;
 import com.labelledejour.api.web.rest.ProdutoRequest;
 import com.labelledejour.api.web.rest.ProdutoResponse;
@@ -23,44 +23,44 @@ public class ProdutoController {
     ProdutoConverter produtoConverter;
 
     @Autowired
-    Cadastrar cadastrar;
+    CadastrarProduto cadastrarProduto;
 
     @Autowired
-    Listar listar;
+    ListarProduto listarProduto;
 
     @Autowired
-    Atualizar atualizar;
+    AtualizarProduto atualizarProduto;
 
     @Autowired
-    Deletar deletar;
+    DeletarProduto deletarProduto;
 
     @PostMapping
     public void save(@RequestBody @Valid ProdutoRequest produtoRequest){
         Produto produto = produtoConverter.toProduto(produtoRequest);
-        cadastrar.save(produto);
+        cadastrarProduto.save(produto);
     }
 
     @GetMapping
     public List<ProdutoResponse> list() {
-        List<Produto> produtos = listar.list();
+        List<Produto> produtos = listarProduto.list();
         return produtoConverter.toProdutoResponse(produtos);
     }
 
     @GetMapping("/{id}")
     public ProdutoResponse product(@PathVariable long id) {
-        Produto produto = listar.listById(id);
+        Produto produto = listarProduto.listById(id);
         return produtoConverter.toProdutoResponse(produto);
     }
 
     @PutMapping("/{id}")  //atualiza todos os campos, não só um ou outro
     public void update(@NotBlank @PathVariable long id, @RequestBody @Valid ProdutoRequest produtoRequest) {
-        Produto produtoPersistido = listar.listById(id);
-        atualizar.update(produtoPersistido, produtoRequest);
+        Produto produtoPersistido = listarProduto.listById(id);
+        atualizarProduto.update(produtoPersistido, produtoRequest);
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable long id){
-        Produto produto = listar.listById(id);  //já ganhei a exceção aqui
-        deletar.delete(produto);
+        Produto produto = listarProduto.listById(id);  //já ganhei a exceção aqui
+        deletarProduto.delete(produto);
     }
 }
