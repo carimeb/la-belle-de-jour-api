@@ -1,5 +1,6 @@
 package com.labelledejour.api.web.rest;
 
+import com.labelledejour.api.web.controller.oferta.PrecoValido;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,6 +17,7 @@ import java.time.LocalDate;
 public class OfertaRequest {  //representa o que vem de fora pra dentro
 
     @NotNull(message = "Campo obrigatório")
+    @PrecoValido
     private String preco;
 
     @NotBlank(message = "Campo obrigatório")
