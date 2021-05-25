@@ -2,6 +2,7 @@ package com.labelledejour.api.data.oferta;
 
 import com.labelledejour.api.data.produto.ProdutoEntity;
 import com.labelledejour.api.domain.entity.Oferta;
+import com.labelledejour.api.domain.entity.Produto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -43,5 +44,17 @@ public class OfertaEntity {
                 .redirectLink(oferta.getRedirectLink())
                 .produtoEntity(ProdutoEntity.builder().id(oferta.getProduto().getId()).build())
                 .build();
+    }
+
+    public Oferta toOferta() {
+        Oferta oferta = new Oferta();
+        oferta.setId(this.id);
+        oferta.setPreco(this.preco);
+        oferta.setOfertante(this.ofertante);
+        oferta.setExpiraEm(this.expiraEm);
+        oferta.setRedirectLink(this.redirectLink);
+        oferta.setProduto(this.produtoEntity.toProduto());
+
+        return oferta;
     }
 }
