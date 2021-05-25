@@ -5,6 +5,8 @@ import com.labelledejour.api.domain.entity.Produto;
 import com.labelledejour.api.web.rest.OfertaRequest;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
+
 @Component
 public class OfertaConverter {
 
@@ -13,7 +15,7 @@ public class OfertaConverter {
         produto.setId(ofertaRequest.getProdutoId());
 
         Oferta oferta = new Oferta();
-        oferta.setPreco(ofertaRequest.getPreco());
+        oferta.setPreco(new BigDecimal(ofertaRequest.getPreco()));
         oferta.setOfertante(ofertaRequest.getOfertante());
         oferta.setExpiraEm(ofertaRequest.getExpiraEm());
         oferta.setRedirectLink(ofertaRequest.getRedirectLink());

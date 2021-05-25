@@ -4,5 +4,5 @@ import com.labelledejour.api.domain.entity.Oferta;
 
 public interface OfertaRepository {
 
-    void save(Oferta oferta);
+    void save(Oferta oferta);  //Create, de CRUD
 }

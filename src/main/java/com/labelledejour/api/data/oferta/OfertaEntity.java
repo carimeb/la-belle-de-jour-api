@@ -31,10 +31,10 @@ public class OfertaEntity {
     @Column(name = "redirect_link", columnDefinition = "VARCHAR(300)")
     private String redirectLink;
 
-    @ManyToOne  //"many" OfertaEntity "toOne" ProdutoEntity
+    @ManyToOne  //cardinalidade: "many" OfertaEntity "toOne" ProdutoEntity
     private ProdutoEntity produtoEntity;
 
-    public static OfertaEntity from(Oferta oferta) {
+    public static OfertaEntity from(Oferta oferta) {  //Pq usamos from ao invés de of, como em ProdutoEntity?
         return OfertaEntity.builder()
                 .id(oferta.getId())
                 .preco(oferta.getPreco())

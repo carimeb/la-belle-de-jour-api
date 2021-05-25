@@ -8,7 +8,6 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Getter
@@ -17,7 +16,7 @@ import java.time.LocalDate;
 public class OfertaRequest {  //representa o que vem de fora pra dentro
 
     @NotNull(message = "Campo obrigatório")
-    private BigDecimal preco;
+    private String preco;
 
     @NotBlank(message = "Campo obrigatório")
     private String ofertante;
