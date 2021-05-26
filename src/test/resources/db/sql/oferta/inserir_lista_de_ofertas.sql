@@ -1,0 +1,24 @@
+INSERT INTO
+    OFERTAS
+    (
+        PRECO,
+        OFERTANTE,
+        EXPIRA_EM,
+        REDIRECT_LINK,
+        PRODUTO_ENTITY_ID
+    )
+VALUES
+    (
+        360.99,
+        'NATURA',
+        NOW(),
+        'https://www.natura.com.br/p/refil-mascara-regeneradora-lumina-250ml/86954?list_title=Resultado%20de%20Busca&list_position=1',
+        1
+    ),
+    (
+        30.99,
+        'AVON',
+        NOW(),
+        'https://www.avon.com.br/p/refil-mascara-regeneradora-lumina-250ml/',
+        2
+    );

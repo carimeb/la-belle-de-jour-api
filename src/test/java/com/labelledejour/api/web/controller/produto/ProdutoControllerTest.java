@@ -152,7 +152,7 @@ class ProdutoControllerTest {
                 get(BASE_URL + "/6")
                         .contentType(MediaType.APPLICATION_JSON)
         )
-                .andExpect(status().isBadRequest())
+                .andExpect(status().isNotFound())
                 .andExpect(jsonPath("message", is("Produto não encontrado.")));
     }
 

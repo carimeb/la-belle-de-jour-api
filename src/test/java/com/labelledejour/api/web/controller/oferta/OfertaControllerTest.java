@@ -40,6 +40,7 @@ class OfertaControllerTest {
     private static final String BASE_URL = "/api/v1/oferta";
     private static final String TRUNCATE = "classpath:db/sql/reset.sql";
     private static final String LISTA_PRODUTOS = "classpath:db/sql/produto/inserir_lista_de_produtos.sql";
+    private static final String LISTA_OFERTAS = "classpath:db/sql/oferta/inserir_lista_de_ofertas.sql";
 
     @Autowired
     private MockMvc mvc;  //faz requisições (mockadas) pro endpoint
@@ -61,6 +62,18 @@ class OfertaControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(body)
         ).andExpect(status().isOk());
+    }
+
+    @Test
+    @Sql({TRUNCATE, LISTA_PRODUTOS, LISTA_OFERTAS})
+    void deveListarTodasAsOfertas() throws Exception {
+
+        mvc.perform(
+                get(BASE_URL)
+                        .contentType(MediaType.APPLICATION_JSON)
+        )
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(2)));
     }
 
 }

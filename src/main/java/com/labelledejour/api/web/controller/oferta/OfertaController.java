@@ -1,11 +1,13 @@
 package com.labelledejour.api.web.controller.oferta;
 
 import com.labelledejour.api.domain.entity.Oferta;
+import com.labelledejour.api.domain.entity.Produto;
 import com.labelledejour.api.domain.usecase.oferta.CadastrarOferta;
 import com.labelledejour.api.domain.usecase.oferta.ListarOferta;
 import com.labelledejour.api.web.converter.OfertaConverter;
 import com.labelledejour.api.web.rest.OfertaRequest;
 import com.labelledejour.api.web.rest.OfertaResponse;
+import com.labelledejour.api.web.rest.ProdutoResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,6 +37,12 @@ public class OfertaController {
     public List<OfertaResponse> list() {
         List<Oferta> ofertas = listarOferta.list();
         return ofertaConverter.toOfertaResponse(ofertas);
+    }
+
+    @GetMapping("/{id}")
+    public OfertaResponse product(@PathVariable long id) {
+        Oferta oferta = listarOferta.listById(id);
+        return ofertaConverter.toOfertaResponse(oferta);
     }
 
 }

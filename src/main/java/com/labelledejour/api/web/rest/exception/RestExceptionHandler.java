@@ -1,5 +1,6 @@
 package com.labelledejour.api.web.rest.exception;
 
+import com.labelledejour.api.data.oferta.OfertaNaoEncontradaException;
 import com.labelledejour.api.data.produto.ProdutoNaoEncontradoException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.util.List;
 
 @RestControllerAdvice
-public class RestExceptionHandler {
+public class RestExceptionHandler {  //retornam mensagens amigáveis de erro aos requests
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -21,10 +22,15 @@ public class RestExceptionHandler {
         return ResponseEntity.badRequest().body(body);
     }
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(ProdutoNaoEncontradoException.class)
     public ResponseEntity<ExceptionResponse> handleInvalidProductId(ProdutoNaoEncontradoException ex) {
         var body = ExceptionResponse.of(ex.getMessage());
-        return ResponseEntity.badRequest().body(body);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(body);
+    }
+
+    @ExceptionHandler(OfertaNaoEncontradaException.class)
+    public ResponseEntity<ExceptionResponse> handleInvalidOfferId(OfertaNaoEncontradaException ex) {
+        var body = ExceptionResponse.of(ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(body);
     }
 }

@@ -17,4 +17,8 @@ public class ListarOferta {
     public List<Oferta> list(){
         return ofertaRepository.list();
     }
+
+    public Oferta listById(long id) {
+        return ofertaRepository.listById(id);
+    }
 }

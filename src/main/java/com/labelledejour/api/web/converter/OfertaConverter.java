@@ -41,4 +41,17 @@ public class OfertaConverter {
                         .build()
                 ).collect(Collectors.toList());
     }
+
+    public OfertaResponse toOfertaResponse(Oferta oferta) {
+        ProdutoConverter produtoConverter = new ProdutoConverter();
+
+        return OfertaResponse.builder()
+                .id(oferta.getId())
+                .preco(oferta.getPreco())
+                .ofertante(oferta.getOfertante())
+                .expiraEm(oferta.getExpiraEm())
+                .redirectLink(oferta.getRedirectLink())
+                .produtoResponse(produtoConverter.toProdutoResponse(oferta.getProduto()))
+                .build();
+    }
 }

@@ -1,6 +1,5 @@
 package com.labelledejour.api.data.oferta;
 
-import com.labelledejour.api.data.produto.ProdutoEntity;
 import com.labelledejour.api.domain.contract.OfertaRepository;
 import com.labelledejour.api.domain.entity.Oferta;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,5 +24,12 @@ public class OfertaRepositoryImpl implements OfertaRepository {
         return ofertaDao.findAll().stream()
                 .map(OfertaEntity::toOferta)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Oferta listById(long id) {
+        OfertaEntity ofertaEntity = ofertaDao.findById(id)
+                .orElseThrow(OfertaNaoEncontradaException::new);
+        return ofertaEntity.toOferta();
     }
 }
