@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.util.List;
 
 @RestControllerAdvice
-public class RestExceptionHandler {  //retornam mensagens amigáveis de erro aos requests
+public class RestExceptionHandler {  //retornam mensagens de erro amigáveis aos requests
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)

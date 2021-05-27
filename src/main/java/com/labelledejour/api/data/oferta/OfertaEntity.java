@@ -35,7 +35,7 @@ public class OfertaEntity {
     @ManyToOne  //cardinalidade: "many" OfertaEntity "toOne" ProdutoEntity
     private ProdutoEntity produtoEntity;
 
-    public static OfertaEntity from(Oferta oferta) {  //Pq usamos from ao invés de of, como em ProdutoEntity?
+    public static OfertaEntity from(Oferta oferta) {
         return OfertaEntity.builder()
                 .id(oferta.getId())
                 .preco(oferta.getPreco())

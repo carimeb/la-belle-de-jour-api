@@ -3,7 +3,7 @@ package com.labelledejour.api.web.controller.oferta;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.labelledejour.api.ApiApplication;
 import com.labelledejour.api.domain.contract.OfertaRepository;
-import com.labelledejour.api.domain.contract.ProdutoRepository;
+import com.labelledejour.api.domain.entity.Oferta;
 import com.labelledejour.api.domain.entity.Produto;
 import com.labelledejour.api.templates.OfertaRequestTemplate;
 import com.labelledejour.api.web.rest.OfertaRequest;
@@ -19,8 +19,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -76,4 +74,39 @@ class OfertaControllerTest {
                 .andExpect(jsonPath("$", hasSize(2)));
     }
 
+    @Test
+    @Sql({TRUNCATE, LISTA_PRODUTOS, LISTA_OFERTAS})
+    void deveListarOfertaPorId() throws Exception {
+
+        mvc.perform(
+                get(BASE_URL + "/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+        )
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("id", is(1)))
+                .andExpect(jsonPath("preco", is(360.99)));
+    }
+
+    @Test
+    @Sql({TRUNCATE, LISTA_PRODUTOS, LISTA_OFERTAS})
+    void deveAtualizarUmaOfertaPorId() throws Exception {
+
+        OfertaRequestTemplate ofertaRequest = OfertaRequestTemplate.defaultBuilder()
+                .ofertante("O Boticário")
+                .build();
+
+        var objectMapper = new ObjectMapper();
+        var body = objectMapper.writeValueAsString(ofertaRequest);  //transforma um objeto Json em String
+
+        mvc.perform(
+                put(BASE_URL + "/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(body)
+        ).andExpect(status().isOk());
+
+        Oferta oferta = ofertaRepository.listById(1L);
+
+        assertThat(oferta.getPreco(), is(new BigDecimal("10.99")));
+        assertThat(oferta.getOfertante(), is("O Boticário"));
+    }
 }

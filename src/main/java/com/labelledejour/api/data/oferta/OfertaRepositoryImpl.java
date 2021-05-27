@@ -32,4 +32,9 @@ public class OfertaRepositoryImpl implements OfertaRepository {
                 .orElseThrow(OfertaNaoEncontradaException::new);
         return ofertaEntity.toOferta();
     }
+
+    @Override
+    public void update(Oferta oferta) {
+        ofertaDao.save(OfertaEntity.from(oferta));
+    }
 }

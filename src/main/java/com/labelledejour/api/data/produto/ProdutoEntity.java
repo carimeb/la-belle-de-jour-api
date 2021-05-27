@@ -39,7 +39,7 @@ public class ProdutoEntity {
                 .build();
     }
 
-    public Produto toProduto() {     //transformo uma entidade Produto do BD para a entidade "Produto" do domain
+    public Produto toProduto() {     //transformo uma entidade Produto do BD para a entidade Produto do domain
         Produto produto = new Produto();
         produto.setId(this.id);
         produto.setNome(this.nome);
