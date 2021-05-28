@@ -4,10 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.labelledejour.api.ApiApplication;
 import com.labelledejour.api.domain.contract.OfertaRepository;
 import com.labelledejour.api.domain.entity.Oferta;
-import com.labelledejour.api.domain.entity.Produto;
 import com.labelledejour.api.templates.OfertaRequestTemplate;
-import com.labelledejour.api.web.rest.OfertaRequest;
-import com.labelledejour.api.web.rest.ProdutoRequest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +16,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -108,5 +106,19 @@ class OfertaControllerTest {
 
         assertThat(oferta.getPreco(), is(new BigDecimal("10.99")));
         assertThat(oferta.getOfertante(), is("O Boticário"));
+    }
+
+    @Test
+    @Sql({TRUNCATE, LISTA_PRODUTOS, LISTA_OFERTAS})
+    void deveDeletarUmaOferta() throws Exception {
+
+        mvc.perform(
+                delete(BASE_URL + "/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+        )
+                .andExpect(status().isOk());
+
+        List<Oferta> ofertas = ofertaRepository.list();
+        assertThat(ofertas.size(), is(1));
     }
 }

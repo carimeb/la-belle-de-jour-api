@@ -5,7 +5,7 @@ INSERT INTO
         OFERTANTE,
         EXPIRA_EM,
         REDIRECT_LINK,
-        PRODUTO_ENTITY_ID
+        PRODUTO_ID
     )
 VALUES
     (

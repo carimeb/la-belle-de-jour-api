@@ -37,4 +37,9 @@ public class OfertaRepositoryImpl implements OfertaRepository {
     public void update(Oferta oferta) {
         ofertaDao.save(OfertaEntity.from(oferta));
     }
+
+    @Override
+    public void delete(Oferta oferta) {
+        ofertaDao.deleteById(oferta.getId());
+    }
 }

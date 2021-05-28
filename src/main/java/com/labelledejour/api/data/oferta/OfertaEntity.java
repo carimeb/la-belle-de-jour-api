@@ -2,7 +2,6 @@ package com.labelledejour.api.data.oferta;
 
 import com.labelledejour.api.data.produto.ProdutoEntity;
 import com.labelledejour.api.domain.entity.Oferta;
-import com.labelledejour.api.domain.entity.Produto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -33,6 +32,7 @@ public class OfertaEntity {
     private String redirectLink;
 
     @ManyToOne  //cardinalidade: "many" OfertaEntity "toOne" ProdutoEntity
+    @JoinColumn(name = "produto_id")
     private ProdutoEntity produtoEntity;
 
     public static OfertaEntity from(Oferta oferta) {

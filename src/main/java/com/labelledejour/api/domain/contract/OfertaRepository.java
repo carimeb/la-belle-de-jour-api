@@ -13,4 +13,6 @@ public interface OfertaRepository {
     Oferta listById(long id);
 
     void update(Oferta oferta);
+
+    void delete(Oferta oferta);
 }

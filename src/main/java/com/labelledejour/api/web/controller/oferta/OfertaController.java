@@ -3,6 +3,7 @@ package com.labelledejour.api.web.controller.oferta;
 import com.labelledejour.api.domain.entity.Oferta;
 import com.labelledejour.api.domain.usecase.oferta.AtualizarOferta;
 import com.labelledejour.api.domain.usecase.oferta.CadastrarOferta;
+import com.labelledejour.api.domain.usecase.oferta.DeletarOferta;
 import com.labelledejour.api.domain.usecase.oferta.ListarOferta;
 import com.labelledejour.api.web.converter.OfertaConverter;
 import com.labelledejour.api.web.rest.OfertaRequest;
@@ -30,6 +31,9 @@ public class OfertaController {
     @Autowired
     AtualizarOferta atualizarOferta;
 
+    @Autowired
+    DeletarOferta deletarOferta;
+
     @PostMapping
     public void save(@RequestBody @Valid OfertaRequest ofertaRequest) {
         Oferta oferta = ofertaConverter.toOferta(ofertaRequest);  //conversor de request para domain
@@ -52,6 +56,12 @@ public class OfertaController {
     public void update(@NotBlank @PathVariable long id, @RequestBody @Valid OfertaRequest ofertaRequest) {
         Oferta ofertaPersistida = listarOferta.listById(id);
         atualizarOferta.update(ofertaPersistida, ofertaRequest);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable long id){
+        Oferta oferta = listarOferta.listById(id);
+        deletarOferta.delete(oferta);
     }
 
 }
